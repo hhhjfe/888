@@ -65,6 +65,19 @@
       font-weight: bold;
     }
 
+    /* Verify button */
+    #verifyBtn {
+      background: #8b0000;
+      color: gold;
+      border: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+    }
+
     /* Error popup */
     .error-box {
       display: none;
@@ -89,16 +102,6 @@
       animation: bounce 1s infinite;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @keyframes fadein {
-      from { opacity: 0; transform: translate(-50%, -60%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
-    }
-
     .close-btn {
       margin-top: 15px;
       background: #8b0000;
@@ -110,17 +113,14 @@
       cursor: pointer;
     }
 
-    /* Verify button */
-    #verifyBtn {
-      background: #8b0000;
-      color: gold;
-      border: none;
-      padding: 15px 25px;
-      font-size: 18px;
-      border-radius: 12px;
-      cursor: pointer;
-      display: block;
-      margin: 20px auto;
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
     }
 
     /* Sparkles */
@@ -138,22 +138,25 @@
       100% { transform: translateY(100vh); opacity: 0; }
     }
 
+    /* Sticker at bottom, initially hidden */
     .footer {
-      height: 80px;
+      height: 120px; /* reserve space */
     }
-<div id="stickerPopup" 
-     style="display:none; position:fixed; top:50%; left:50%; 
-            transform:translate(-50%, -50%); background:white; 
-            padding:20px; border-radius:20px; box-shadow:0 5px 20px rgba(0,0,0,0.3); 
-            text-align:center; z-index:1000;">
-  <img src="IMG_6666.jpeg" style="width:150px; animation: float 2s ease-in-out infinite;">
-  <div style="margin-top:15px; font-size:18px; font-weight:bold;">🧧 Congratulations! 🧧</div>
-  <button id="closeStickerBtn" 
-          style="margin-top:10px; padding:10px 20px; border:none; background:#8b0000; color:gold; border-radius:12px; cursor:pointer;">
-    Close
-  </button>
-</div>
-    
+
+    #sticker {
+      width: 120px;
+      display: block;
+      margin: 0 auto;
+      opacity: 0;
+      transition: opacity 0.6s;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
   </style>
 </head>
 
@@ -211,9 +214,8 @@
   </div>
 
   <div class="footer">
-    <button id="stickerBtn">🎁 Claim Angpow</button>
-</div>
-
+    <img id="sticker" src="IMG_6666.jpeg" alt="sticker">
+  </div>
 
   <script>
     // Verify button shows error popup
@@ -243,19 +245,22 @@
     }
 
     setInterval(createSparkle, 150);
+
+    // Sticker shows when scrolled to bottom
+    const sticker = document.getElementById("sticker");
+
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+
+      if (scrollTop + clientHeight >= scrollHeight - 50) {
+        sticker.style.opacity = 1;
+      } else {
+        sticker.style.opacity = 0;
+      }
+    });
   </script>
-<script>
-const stickerBtn = document.getElementById("stickerBtn");
-const stickerPopup = document.getElementById("stickerPopup");
-const closeStickerBtn = document.getElementById("closeStickerBtn");
 
-stickerBtn.addEventListener("click", () => {
-  stickerPopup.style.display = "block";
-});
-
-closeStickerBtn.addEventListener("click", () => {
-  stickerPopup.style.display = "none";
-});
-</script>
 </body>
 </html>

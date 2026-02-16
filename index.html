@@ -9,6 +9,7 @@
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f2f2f2;
+      overflow-x: hidden;
     }
 
     .header {
@@ -64,14 +65,77 @@
       font-weight: bold;
     }
 
+    /* Error popup */
     .error-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background: #fff3cd;
       color: #856404;
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px;
+      padding: 30px 20px;
+      border-radius: 20px;
       text-align: center;
-      font-weight: bold;
+      z-index: 999;
+      width: 80%;
+      max-width: 300px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      animation: fadein 0.5s ease;
+    }
+
+    .error-box div:first-child {
+      font-size: 60px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background: #8b0000;
+      color: gold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Verify button */
+    #verifyBtn {
+      background: #8b0000;
+      color: gold;
+      border: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: gold;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
     }
 
     .footer {
@@ -120,18 +184,50 @@
 
   </div>
 
-  <div class="error-box">
-  <div style="font-size:60px;">🧋</div>
-  <div style="font-size:22px; margin-top:10px;">
-    ❌ Error 404: Money Not Found
+  <button id="verifyBtn">Verify Transaction 🧋</button>
+
+  <div class="error-box" id="errorBox">
+    <div>🧋</div>
+    <div style="margin-top:10px; font-size:20px;">
+      ❌ Error 404: Money Not Found
+    </div>
+    <div style="margin-top:10px; font-size:16px;">
+      System requires <b>1 cup of Bubble Tea</b> to verify transaction.
+    </div>
+    <button class="close-btn" id="closeBtn">Close</button>
   </div>
-  <div style="margin-top:15px; font-size:18px;">
-    System requires <b>1 cup of Bubble Tea</b><br>
-    to verify transaction.
-  </div>
-</div>
 
   <div class="footer"></div>
+
+  <script>
+    // Verify button shows error popup
+    const btn = document.getElementById("verifyBtn");
+    const errorBox = document.getElementById("errorBox");
+    const closeBtn = document.getElementById("closeBtn");
+
+    btn.addEventListener("click", () => {
+      errorBox.style.display = "block";
+    });
+
+    closeBtn.addEventListener("click", () => {
+      errorBox.style.display = "none";
+    });
+
+    // Sparkles
+    function createSparkle() {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.left = Math.random() * window.innerWidth + "px";
+      sparkle.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 5000);
+    }
+
+    setInterval(createSparkle, 150);
+  </script>
 
 </body>
 </html>

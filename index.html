@@ -1,13 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🧧 Angpow Surprise</title>
+  <title>🧧 财神爷 International Bank 🧧</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #8b0000, #b30000);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: gold;
+      overflow: hidden;
+    }
+
+    .card {
+      margin: 100px auto;
+      background: rgba(139, 0, 0, 0.9);
+      padding: 40px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 25px;
+      box-shadow: 0 0 30px gold;
+      animation: glow 2s infinite alternate;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    p {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-top: 20px;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 20px gold; }
+      to { box-shadow: 0 0 40px yellow; }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: gold;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+  </style>
 </head>
-<body style="background:red;color:gold;text-align:center;padding-top:50px;font-family:sans-serif;">
-  <h1>🧧 财神爷 International Bank 🧧</h1>
-  <p>Amount: RM8888</p>
-  <p>Status: APPROVED ✅</p>
-  <h2>❌ Error 404: Money Not Found</h2>
-  <p>System requires 1 cup of Bubble Tea 🧋</p>
+
+<body>
+
+  <div class="card">
+    <h1>🧧 财神爷 International Bank 🧧</h1>
+    <p><strong>Transaction Alert 🚨</strong></p>
+    <p>Amount: RM8888 💰</p>
+    <p>Status: APPROVED ✅</p>
+    <p>Reference: HUAT-888-2026</p>
+    <hr>
+    <h2>❌ Error 404: Money Not Found</h2>
+    <p>System requires 1 cup of Bubble Tea 🧋</p>
+  </div>
+
+  <script>
+    function createSparkle() {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.left = Math.random() * window.innerWidth + "px";
+      sparkle.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 5000);
+    }
+
+    setInterval(createSparkle, 150);
+  </script>
+
 </body>
 </html>
